@@ -1,0 +1,86 @@
+/usr/lib/python3/dist-packages/requests/__init__.py:89: RequestsDependencyWarning: urllib3 (1.26.8) or chardet (3.0.4) doesn't match a supported version!
+  warnings.warn("urllib3 ({}) or chardet ({}) doesn't match a supported "
+Job Running at 2022-02-22 10:39:37
+Modules successfully loaded
+Traceback (most recent call last):
+  File "/home/ubuntu/rishabh_goel/blurred_test.py", line 26, in <module>
+    os.chdir('ImageMetrics/Python/libsvm')
+FileNotFoundError: [Errno 2] No such file or directory: 'ImageMetrics/Python/libsvm'
+/usr/lib/python3/dist-packages/requests/__init__.py:89: RequestsDependencyWarning: urllib3 (1.26.8) or chardet (3.0.4) doesn't match a supported version!
+  warnings.warn("urllib3 ({}) or chardet ({}) doesn't match a supported "
+Job Running at 2022-02-22 10:41:20
+Modules successfully loaded
+Traceback (most recent call last):
+  File "/home/ubuntu/rishabh_goel/blurred_test.py", line 26, in <module>
+    os.chdir('ImageMetrics/Python/libsvm')
+FileNotFoundError: [Errno 2] No such file or directory: 'ImageMetrics/Python/libsvm'
+/usr/lib/python3/dist-packages/requests/__init__.py:89: RequestsDependencyWarning: urllib3 (1.26.8) or chardet (3.0.4) doesn't match a supported version!
+  warnings.warn("urllib3 ({}) or chardet ({}) doesn't match a supported "
+Job Running at 2022-02-22 10:42:39
+Modules successfully loaded
+Traceback (most recent call last):
+  File "/home/ubuntu/rishabh_goel/blurred_test.py", line 26, in <module>
+    os.chdir('ImageMetrics/Python/libsvm')
+FileNotFoundError: [Errno 2] No such file or directory: 'ImageMetrics/Python/libsvm'
+/usr/lib/python3/dist-packages/requests/__init__.py:89: RequestsDependencyWarning: urllib3 (1.26.8) or chardet (3.0.4) doesn't match a supported version!
+  warnings.warn("urllib3 ({}) or chardet ({}) doesn't match a supported "
+Job Running at 2022-02-22 10:42:42
+Modules successfully loaded
+Traceback (most recent call last):
+  File "/home/ubuntu/rishabh_goel/blurred_test.py", line 26, in <module>
+    os.chdir('ImageMetrics/Python/libsvm')
+FileNotFoundError: [Errno 2] No such file or directory: 'ImageMetrics/Python/libsvm'
+/usr/lib/python3/dist-packages/requests/__init__.py:89: RequestsDependencyWarning: urllib3 (1.26.8) or chardet (3.0.4) doesn't match a supported version!
+  warnings.warn("urllib3 ({}) or chardet ({}) doesn't match a supported "
+Job Running at 2022-02-22 11:08:09
+Modules successfully loaded
+Traceback (most recent call last):
+  File "/home/ubuntu/rishabh_goel/blurred_test.py", line 26, in <module>
+    os.chdir('ImageMetrics/Python/libsvm')
+FileNotFoundError: [Errno 2] No such file or directory: 'ImageMetrics/Python/libsvm'
+/usr/lib/python3/dist-packages/requests/__init__.py:89: RequestsDependencyWarning: urllib3 (1.26.8) or chardet (3.0.4) doesn't match a supported version!
+  warnings.warn("urllib3 ({}) or chardet ({}) doesn't match a supported "
+Job Running at 2022-02-22 11:08:52
+Modules successfully loaded
+Traceback (most recent call last):
+  File "/home/ubuntu/rishabh_goel/blurred_test.py", line 26, in <module>
+    os.chdir('ImageMetrics/Python/libsvm')
+FileNotFoundError: [Errno 2] No such file or directory: 'ImageMetrics/Python/libsvm'
+/usr/lib/python3/dist-packages/requests/__init__.py:89: RequestsDependencyWarning: urllib3 (1.26.8) or chardet (3.0.4) doesn't match a supported version!
+  warnings.warn("urllib3 ({}) or chardet ({}) doesn't match a supported "
+Job Running at 2022-02-22 13:11:16
+Modules successfully loaded
+Traceback (most recent call last):
+  File "/home/ubuntu/rishabh_goel/blurred_test.py", line 63, in <module>
+    import cv2
+ModuleNotFoundError: No module named 'cv2'
+/usr/lib/python3/dist-packages/requests/__init__.py:89: RequestsDependencyWarning: urllib3 (1.26.8) or chardet (3.0.4) doesn't match a supported version!
+  warnings.warn("urllib3 ({}) or chardet ({}) doesn't match a supported "
+Job Running at 2022-02-22 13:11:35
+Modules successfully loaded
+Traceback (most recent call last):
+  File "/home/ubuntu/rishabh_goel/blurred_test.py", line 63, in <module>
+    import cv2
+ModuleNotFoundError: No module named 'cv2'
+/usr/lib/python3/dist-packages/requests/__init__.py:89: RequestsDependencyWarning: urllib3 (1.26.8) or chardet (3.0.4) doesn't match a supported version!
+  warnings.warn("urllib3 ({}) or chardet ({}) doesn't match a supported "
+/home/ubuntu/.local/lib/python3.8/site-packages/pandas/util/_decorators.py:311: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  return func(*args, **kwargs)
+/home/ubuntu/rishabh_goel/blurred_test.py:153: RuntimeWarning: invalid value encountered in sqrt
+  sigma = (sigma - mu_sq)**0.5
+/home/ubuntu/rishabh_goel/blurred_test.py:118: DeprecationWarning: `np.float` is a deprecated alias for the builtin `float`. To silence this warning, use `float` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.float64` here.
+Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
+  vectfunc = np.vectorize(func, otypes = [np.float], cache = False)
+Job Running at 2022-02-28 05:30:03
+Modules successfully loaded
+Connected to Replica DB
+Number of rows in Data - 78757
+Data retrieved in 70.6993043422699seconds
+Traceback (most recent call last):
+  File "/home/ubuntu/rishabh_goel/blurred_test.py", line 285, in <module>
+    image = cv2.imdecode(image, cv2.IMREAD_COLOR)
+cv2.error: OpenCV(4.5.5) /io/opencv/modules/imgcodecs/src/loadsave.cpp:816: error: (-215:Assertion failed) !buf.empty() in function 'imdecode_'
+

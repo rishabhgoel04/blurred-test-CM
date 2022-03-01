@@ -1,0 +1,9 @@
+version: '3.7'
+services:
+  python:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: blurred_test
+    ports:
+      - "5001:5000"
