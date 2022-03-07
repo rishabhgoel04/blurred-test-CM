@@ -1,20 +1,10 @@
-
-import sys
-import os
-import cv2
+import sys, cv2, requests
 import numpy as np
 import math as m
-import requests
-import cv2
-import schedule
-import time
-# for gamma function, called 
 from libsvm.svmutil import *
-import svm
 import svmutil
 from svm import *
 from svmutil import *
-
 
 from helper import *
 from import_modules import *
@@ -23,7 +13,6 @@ from scipy.special import gamma as tgamma
 # In[9]:
 
 sys.path.append('ImageMetrics/Python/libsvm/python')
-
 sys.path.append('ImageMetrics/Python/libsvm/python/svm.py')
 sys.path.append('ImageMetrics/Python/libsvm/python/svmutil.py')
 
@@ -34,10 +23,6 @@ from order_items oi
 left join products p on oi.sku_id=p.sku_id and oi.catalogue_name=p.catalogue_name
 group by 1,2,3""")
 # In[16]:
-
-
-
-
 def AGGDfit(structdis):
     # variables to count positive pixels / negative pixels and their squared sum
     poscount = 0
