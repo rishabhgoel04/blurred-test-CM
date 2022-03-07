@@ -1,50 +1,24 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[11]:
-
 
 import sys
-sys.path.append('/home/ubuntu/rishabh_goel')
+import os
+import cv2
+import numpy as np
+import math as m
+import requests
+import cv2
+import schedule
+import time
+# for gamma function, called 
+from libsvm.svmutil import *
+import svm
+import svmutil
+from svm import *
+from svmutil import *
 
-
-# In[12]:
 
 from helper import *
 from import_modules import *
-# In[13]:
-
-
-
-
-
-# In[4]:
-
-import os
-
-# os.chdir('ImageMetrics/Python/libsvm')
-
-
-# In[5]:
-
-# os.system('make clean')
-
-
-# In[6]:
-
-# os.system('make')
-
-
-# In[7]:
-
-import os
-# os.chdir('python')
-
-
-# In[8]:
-
-# os.system('make')
-
+from scipy.special import gamma as tgamma
 
 # In[9]:
 
@@ -53,20 +27,6 @@ sys.path.append('ImageMetrics/Python/libsvm/python')
 sys.path.append('ImageMetrics/Python/libsvm/python/svm.py')
 sys.path.append('ImageMetrics/Python/libsvm/python/svmutil.py')
 
-import cv2
-import numpy as np
-import math as m
-import sys
-# for gamma function, called 
-from scipy.special import gamma as tgamma
-import os
-from libsvm.svmutil import *
-import svm
-# from svm import *
-
-import svmutil
-from svm import *
-from svmutil import *
 
 df=get_data_cmdb("""
 select oi.sku_id,  p.product_name_en, oi.product_image
@@ -258,16 +218,7 @@ product_data_df=product_data_df.dropna()
 product_data_df.drop_duplicates(subset ="product_image",
                      keep = False, inplace = True)
 
-# In[17]:
-
-
-
-
-
-import requests
-import cv2
-import numpy as np
-  
+# In[17]:  
 image_url_list = list(product_data_df["product_image"])
 blurred_df=pd.DataFrame()
 quality_list=[]
@@ -297,14 +248,9 @@ for image_url in image_url_list:
 blurred_df = blurred_df.assign(score =quality_list)
 blurred_df=blurred_df.sort_values(by=['score'])
 
-# In[18]:
-# os.chdir('/home/ubuntu/rishabh_goel')
-# os.chdir('/home/ubuntu/rishabh_goel')
+
 paste_data_google_sheet(blurred_df,'1gyynC8w82vWzyES9U4ITJusi3obAmdWF3MUWYBl54oM','blurred_sheet',1,1)
 
-
-
-# In[ ]:
 
 
 
