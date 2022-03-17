@@ -3,8 +3,8 @@ import numpy as np
 import math as m
 from libsvm.svmutil import *
 import svmutil
-from svm import *
-from svmutil import *
+# from svm import *
+# from svmutil import *
 
 from helper import *
 from import_modules import *
@@ -21,7 +21,10 @@ df=get_data_cmdb("""
 select oi.sku_id,  p.product_name_en, oi.product_image
 from order_items oi
 left join products p on oi.sku_id=p.sku_id and oi.catalogue_name=p.catalogue_name
-group by 1,2,3""")
+group by 1,2,3 LIMIT 10""")
+# df=pd.read_csv("data.csv")
+# df=df.iloc[:30,:]
+
 # In[16]:
 def AGGDfit(structdis):
     # variables to count positive pixels / negative pixels and their squared sum
@@ -213,16 +216,24 @@ for image_url in image_url_list:
     
     try:
         resp = requests.get(image_url,headers={'User-Agent': 'Mozilla/5.0'},stream=True).raw
+        # print("fetched")
     except:
         continue
     # resp = requests.get(image_url,headers={'User-Agent': 'Mozilla/5.0'},stream=True).raw
     image = np.asarray(bytearray(resp.read()), dtype="uint8")
     image = cv2.imdecode(image, cv2.IMREAD_COLOR)
-    try:
-        qualityscore = test_measure_BRISQUE(image)
-    except:
+    # print("conv to img")
+    # print(image_url)
+    if(image is None):
         continue
-    # qualityscore = test_measure_BRISQUE(image)
+    else:
+        qualityscore = test_measure_BRISQUE(image)
+        # print("score got")
+        
+    # try:
+    #     qualityscore = test_measure_BRISQUE(image)
+    # except:
+    #     continue
     h=image.shape[0]
     w=image.shape[1]
     if(qualityscore<50.0) and (h<=900) and (w<=900):
@@ -235,9 +246,6 @@ blurred_df=blurred_df.sort_values(by=['score'])
 
 
 paste_data_google_sheet(blurred_df,'1gyynC8w82vWzyES9U4ITJusi3obAmdWF3MUWYBl54oM','blurred_sheet',1,1)
-
-
-
 
 
 

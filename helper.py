@@ -9,7 +9,10 @@ from sqlalchemy import create_engine
 
 def get_data_cmdb(query):    
     input_time = time.time()
-    conn = pg.connect(host="13.232.92.91",database="cmdb",port="5432",user="cm",password="cm")
+    conn = pg.connect(host="cmdb-rr.cbo3ijdmzhje.ap-south-1.rds.amazonaws.com",database="cmdb",port="5432",user="rishabh_goel",password="hUaz3B4UgTS8zxWJ")
+
+    # conn = pg.connect(host="cmdb-rr.cbo3ijdmzhje.ap-south-1.rds.amazonaws.com",database="cmdb",port="5432",user="mohit_bagaria",password="vy7@cn+Lk@yP9gTf")
+    # conn = pg.connect(host="13.232.92.91",database="cmdb",port="5432",user="rishabh_goel",password="123456")
     print('Connected to Replica DB')
     df = pd.read_sql_query(query, con = conn)       
     print('Number of rows in Data - ' + str(df.shape[0]))    

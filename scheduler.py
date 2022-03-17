@@ -10,12 +10,13 @@ from apscheduler.schedulers.background import BackgroundScheduler
 
 def job():
     print("In job")
-    call(['python', 'blurred_test/blurred_test.py'])
+    call(['python', 'blurred_test.py'])
 
 if __name__ == '__main__':
     scheduler = BackgroundScheduler()
     scheduler.configure(timezone=utc)
     scheduler.add_job(job, trigger='cron', week="*")
+    # scheduler.add_job(job,'interval', minutes=10)
     scheduler.start()
     print('Press Ctrl+{0} to exit'.format('Break' if os.name == 'nt' else 'C'))
 
