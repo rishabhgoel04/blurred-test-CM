@@ -1,16 +1,18 @@
-
 import psycopg2 as pg
 import time,os
 import pandas as pd
 import gspread
 from gspread_dataframe import set_with_dataframe
 from sqlalchemy import create_engine
+from dotenv import load_dotenv
 
-dbuser = os.environ('DBUSER')
-dbpass = os.environ('DBPASS')
-db = os.environ('DB')
-host = os.environ('DBURL')
-port = os.environ('PORT')
+load_dotenv()
+dbuser = os.getenv('DBUSER')
+dbpass = os.getenv('DBPASS')
+db = os.getenv('DB')
+host = os.getenv('DBURL')
+port = os.getenv('PORT')
+
 
 
 def get_data_cmdb(query):    
@@ -39,54 +41,54 @@ def paste_data_google_sheet(df, key,worksheet,add_data_row = 1, add_data_col = 1
 
 
 
-def get_data_crmdb(query):
-    input_time = time.time()
-    conn = pg.connect(host="cmdb-rr.cbo3ijdmzhje.ap-south-1.rds.amazonaws.com",database="crmdb",port="5432",user="crm_readonly",password="crm_readonly")
-    print('Connected to Replica DB')
-    df = pd.read_sql_query(query, con = conn)
-    print('Number of rows in Data - ' + str(df.shape[0]))
-    final_time = time.time()
-    print('Data retrieved in ' + str(final_time - input_time) + 'seconds' )
-    return df
+# def get_data_crmdb(query):
+#     input_time = time.time()
+#     conn = pg.connect(host="cmdb-rr.cbo3ijdmzhje.ap-south-1.rds.amazonaws.com",database="crmdb",port="5432",user="crm_readonly",password="crm_readonly")
+#     print('Connected to Replica DB')
+#     df = pd.read_sql_query(query, con = conn)
+#     print('Number of rows in Data - ' + str(df.shape[0]))
+#     final_time = time.time()
+#     print('Data retrieved in ' + str(final_time - input_time) + 'seconds' )
+#     return df
 
 
 
 
-def get_data_wms(query):
-    input_time = time.time()
-    conn = pg.connect(host="cmdb-rr.cbo3ijdmzhje.ap-south-1.rds.amazonaws.com",database="wmsdb",port="5432",user="wms",password="wms")
-    print('Connected to Replica DB')
-    df = pd.read_sql_query(query, con = conn)
-    print('Number of rows in Data - ' + str(df.shape[0]))
-    final_time = time.time()
-    print('Data retrieved in ' + str(final_time - input_time) + 'seconds' )
-    return df
+# def get_data_wms(query):
+#     input_time = time.time()
+#     conn = pg.connect(host="cmdb-rr.cbo3ijdmzhje.ap-south-1.rds.amazonaws.com",database="wmsdb",port="5432",user="wms",password="wms")
+#     print('Connected to Replica DB')
+#     df = pd.read_sql_query(query, con = conn)
+#     print('Number of rows in Data - ' + str(df.shape[0]))
+#     final_time = time.time()
+#     print('Data retrieved in ' + str(final_time - input_time) + 'seconds' )
+#     return df
 
 
 
 
-def execute_statement_production(query):
-    ## Writing to db
-    engine = create_engine('postgresql://cm:cm@cmdb.cbo3ijdmzhje.ap-south-1.rds.amazonaws.com:5432/cmdb')
+# def execute_statement_production(query):
+#     ## Writing to db
+#     engine = create_engine('postgresql://cm:cm@cmdb.cbo3ijdmzhje.ap-south-1.rds.amazonaws.com:5432/cmdb')
 
-    print('DB Connection Established')
+#     print('DB Connection Established')
 
-    engine.execute(query)
+#     engine.execute(query)
 
-    print('Finished Executing Statement')
+#     print('Finished Executing Statement')
 
 
 
-def write_data_production(df, table_name, if_exists_record = 'append', db_schema = 'public'):
-    ## Writing to db
-    from sqlalchemy import create_engine
-    engine = create_engine('postgresql://cm:cm@cmdb.cbo3ijdmzhje.ap-south-1.rds.amazonaws.com:5432/cmdb')
+# def write_data_production(df, table_name, if_exists_record = 'append', db_schema = 'public'):
+#     ## Writing to db
+#     from sqlalchemy import create_engine
+#     engine = create_engine('postgresql://cm:cm@cmdb.cbo3ijdmzhje.ap-south-1.rds.amazonaws.com:5432/cmdb')
 
-    print('DB Conncetion Established')
+#     print('DB Conncetion Established')
 
-    df.to_sql(table_name, engine, if_exists= if_exists_record, index=False, schema= db_schema)
+#     df.to_sql(table_name, engine, if_exists= if_exists_record, index=False, schema= db_schema)
 
-    print('Finished Writing to DB')
+#     print('Finished Writing to DB')
 
 
 
