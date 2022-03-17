@@ -21,7 +21,7 @@ df=get_data_cmdb("""
 select oi.sku_id,  p.product_name_en, oi.product_image
 from order_items oi
 left join products p on oi.sku_id=p.sku_id and oi.catalogue_name=p.catalogue_name
-group by 1,2,3 LIMIT 10""")
+group by 1,2,3""")
 # df=pd.read_csv("data.csv")
 # df=df.iloc[:30,:]
 
