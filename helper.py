@@ -1,18 +1,21 @@
+
 import psycopg2 as pg
-import time
+import time,os
 import pandas as pd
 import gspread
 from gspread_dataframe import set_with_dataframe
 from sqlalchemy import create_engine
 
+dbuser = os.environ('DBUSER')
+dbpass = os.environ('DBPASS')
+db = os.environ('DB')
+host = os.environ('DBURL')
+port = os.environ('PORT')
 
 
 def get_data_cmdb(query):    
     input_time = time.time()
-    conn = pg.connect(host="cmdb-rr.cbo3ijdmzhje.ap-south-1.rds.amazonaws.com",database="cmdb",port="5432",user="rishabh_goel",password="hUaz3B4UgTS8zxWJ")
-
-    # conn = pg.connect(host="cmdb-rr.cbo3ijdmzhje.ap-south-1.rds.amazonaws.com",database="cmdb",port="5432",user="mohit_bagaria",password="vy7@cn+Lk@yP9gTf")
-    # conn = pg.connect(host="13.232.92.91",database="cmdb",port="5432",user="rishabh_goel",password="123456")
+    conn = pg.connect(host=host,database=db,port=port,user=dbuser,password=dbpass)
     print('Connected to Replica DB')
     df = pd.read_sql_query(query, con = conn)       
     print('Number of rows in Data - ' + str(df.shape[0]))    
@@ -32,21 +35,6 @@ def paste_data_google_sheet(df, key,worksheet,add_data_row = 1, add_data_col = 1
     set_with_dataframe(worksheet,df,row=add_data_row, col=add_data_col)
     print('Data Inserted in Google Sheet')
 
-
-
-
-
-def get_data_redshift(query):
-    attempts = 0
-    input_time = time.time()
-    conn = pg.connect(host="cm-redshift-1.cyl4ilkelm5m.ap-south-1.redshift.amazonaws.com",database="cmwh",port="5439",user="cmrsreader",password="^ft@F2w8N2KQeX!")
-    print('Connected to Replica DB')
-    df = pd.read_sql_query(query, con = conn)
-    print('Number of rows in Data - ' + str(df.shape[0]))
-    final_time = time.time()
-    print('Data retrieved in ' + str(final_time - input_time) + 'seconds' )
-    conn.close()
-    return df
 
 
 
