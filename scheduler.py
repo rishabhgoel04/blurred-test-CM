@@ -15,7 +15,7 @@ def job():
 if __name__ == '__main__':
     scheduler = BackgroundScheduler()
     scheduler.configure(timezone=utc)
-    scheduler.add_job(job, trigger='cron', day_of_week=1, hour=5, minute=45)
+    scheduler.add_job(job, trigger='cron', day_of_week=2, hour=8, minute=20)
     # scheduler.add_job(job, trigger='cron', week="*")
     # scheduler.add_job(job,'interval', minutes=10)
     scheduler.start()

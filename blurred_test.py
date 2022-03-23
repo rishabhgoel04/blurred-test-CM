@@ -198,54 +198,61 @@ def test_measure_BRISQUE(dis):
     return qualityscore
 
 
-# In[14]:
+#Cleaning data
+df=df.dropna()
+df.drop_duplicates(subset ="product_image", keep = False, inplace = True)
 
-
-product_data_df=df
-product_data_df=product_data_df.dropna()
-product_data_df.drop_duplicates(subset ="product_image",
-                     keep = False, inplace = True)
-
-# In[17]:  
-image_url_list = list(product_data_df["product_image"])
+#Generating Batches of dataframe in size of 100
+list_df = np.array_split(df, 100)
+# print("batches created")
+#Defining the New Dataframe with score
 blurred_df=pd.DataFrame()
-quality_list=[]
-
-
-for image_url in image_url_list:
-    
-    try:
-        resp = requests.get(image_url,headers={'User-Agent': 'Mozilla/5.0'},stream=True).raw
-        # print("fetched")
-    except:
-        continue
-    # resp = requests.get(image_url,headers={'User-Agent': 'Mozilla/5.0'},stream=True).raw
-    image = np.asarray(bytearray(resp.read()), dtype="uint8")
-    image = cv2.imdecode(image, cv2.IMREAD_COLOR)
-    # print("conv to img")
-    # print(image_url)
-    if(image is None):
-        continue
-    else:
-        qualityscore = test_measure_BRISQUE(image)
-        # print("score got")
+c=0
+for batch_data in list_df:
+    blurred_df_batch=pd.DataFrame()
+    image_url_list = list(batch_data["product_image"])
+    quality_list=[]
+    # print("batch",c)
+    c=c+1
+    for image_url in image_url_list:
         
-    # try:
-    #     qualityscore = test_measure_BRISQUE(image)
-    # except:
-    #     continue
-    h=image.shape[0]
-    w=image.shape[1]
-    if(qualityscore<50.0) and (h<=900) and (w<=900):
-        quality_list.append(qualityscore)
-        blurred_df=blurred_df.append(product_data_df[product_data_df['product_image']==image_url])
+        try:
+            resp = requests.get(image_url,headers={'User-Agent': 'Mozilla/5.0'},stream=True).raw
+            # print("fetched")
+        except:
+            continue
 
+        try:
+            image = np.asarray(bytearray(resp.read()), dtype="uint8")
+            image = cv2.imdecode(image, cv2.IMREAD_COLOR)
+        except:
+            continue
+        # print("conv to img")
+        # print(image_url)
+        if(image is None):
+            continue
+        else:
+            qualityscore = test_measure_BRISQUE(image)
+            # print("score got")
+            
+        # try:
+        #     qualityscore = test_measure_BRISQUE(image)
+        # except:
+        #     continue
+        h=image.shape[0]
+        w=image.shape[1]
+        if(qualityscore<50.0) and (h<=900) and (w<=900):
+            quality_list.append(qualityscore)
+            blurred_df_batch=blurred_df_batch.append(batch_data[batch_data['product_image']==image_url])
+            
 
-blurred_df = blurred_df.assign(score =quality_list)
-blurred_df=blurred_df.sort_values(by=['score'])
+    blurred_df_batch = blurred_df_batch.assign(score =quality_list)
+    # blurred_df_batch=blurred_df_batch.sort_values(by=['score'])
+    blurred_df=blurred_df.append(blurred_df_batch,ignore_index=True)
+    blurred_df=blurred_df.sort_values(by=['score'])
 
-
-paste_data_google_sheet(blurred_df,'1gyynC8w82vWzyES9U4ITJusi3obAmdWF3MUWYBl54oM','blurred_sheet',1,1)
+    # print("added in blurred dataframe")
+    paste_data_google_sheet(blurred_df,'1gyynC8w82vWzyES9U4ITJusi3obAmdWF3MUWYBl54oM','blurred_sheet',1,1)
 
 
 
