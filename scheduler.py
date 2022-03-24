@@ -6,15 +6,11 @@ from helper import *
 from blurred_test import run
 from apscheduler.schedulers.background import BackgroundScheduler
 
-# def job():
-#     print("In job")
-#     call(['python', 'blurred_test.py'])
 
 if __name__ == '__main__':
     scheduler = BackgroundScheduler()
     scheduler.configure(timezone=utc)
-    scheduler.add_job(func=run, trigger='cron', day_of_week=3, hour=9, minute=38)
-    # scheduler.add_job(, trigger='cron', day_of_week=3, hour=7, minute=13)
+    scheduler.add_job(func=run, trigger='cron', day_of_week=3, hour=17, minute=10)
     scheduler.start()
     print('Press Ctrl+{0} to exit'.format('Break' if os.name == 'nt' else 'C'))
 

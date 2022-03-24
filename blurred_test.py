@@ -5,7 +5,6 @@ from libsvm.svmutil import *
 import svmutil
 # from svm import *
 # from svmutil import *
-
 from helper import *
 from import_modules import *
 from scipy.special import gamma as tgamma
@@ -16,13 +15,10 @@ sys.path.append('ImageMetrics/Python/libsvm/python/svm.py')
 sys.path.append('ImageMetrics/Python/libsvm/python/svmutil.py')
 
 def run():
-    df=pd.read_csv("data.csv")
+    # df=pd.read_csv("data.csv")
+    df=data_from_db("select oi.sku_id, p.product_name_en, oi.product_image from cmdb_public.order_items oi left join cmdb_public.products p on oi.sku_id=p.sku_id and oi.catalogue_name=p.catalogue_name group by 1,2,3")
     df=df.iloc[:10]
-    # df=get_data_cmdb("""
-    # select oi.sku_id,  p.product_name_en, oi.product_image
-    # from order_items oi
-    # left join products p on oi.sku_id=p.sku_id and oi.catalogue_name=p.catalogue_name
-    # group by 1,2,3 limit 100""")
+    
 
     # In[16]:
     def AGGDfit(structdis):
@@ -202,7 +198,7 @@ def run():
     df.drop_duplicates(subset ="product_image", keep = False, inplace = True)
 
     #Generating Batches of dataframe in size of 100
-    list_df = np.array_split(df, 10)
+    list_df = np.array_split(df, 100)
     print("batches created")
     #Defining the New Dataframe with score
     blurred_df=pd.DataFrame()
