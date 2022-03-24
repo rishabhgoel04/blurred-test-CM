@@ -17,7 +17,7 @@ sys.path.append('ImageMetrics/Python/libsvm/python/svmutil.py')
 def run():
     # df=pd.read_csv("data.csv")
     df=data_from_db("select oi.sku_id, p.product_name_en, oi.product_image from cmdb_public.order_items oi left join cmdb_public.products p on oi.sku_id=p.sku_id and oi.catalogue_name=p.catalogue_name group by 1,2,3")
-    df=df.iloc[:10]
+    # df=df.iloc[:10]
     
 
     # In[16]:
