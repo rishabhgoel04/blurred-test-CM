@@ -50,6 +50,15 @@ def paste_data_google_sheet(df, key,worksheet,add_data_row = 1, add_data_col = 1
     set_with_dataframe(worksheet,df,row=add_data_row, col=add_data_col)
     print('Data Inserted in Google Sheet')
 
+def copy_data_google_sheet(key,worksheet,add_data_row = 1, add_data_col = 1):
+    gc = gspread.service_account(filename='test.json')
+    sh = gc.open_by_key(key)
+    worksheet = sh.worksheet(worksheet)
+    print('Worksheet Connection Established')
+    df = pd.DataFrame(worksheet.get_all_records())
+    print('Data Fetched from Google Sheet')
+
+    return df
 
 
 

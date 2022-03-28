@@ -16,7 +16,7 @@ sys.path.append('ImageMetrics/Python/libsvm/python/svmutil.py')
 
 def run():
     # df=pd.read_csv("data.csv")
-    df=data_from_db("select oi.sku_id, p.product_name_en, oi.product_image from cmdb_public.order_items oi left join cmdb_public.products p on oi.sku_id=p.sku_id and oi.catalogue_name=p.catalogue_name group by 1,2,3")
+    df=data_from_db("select oi.sku_id,p.product_name_en,oi.product_image from cmdb_public.order_items oi left join cmdb_public.products p on oi.sku_id=p.sku_id and oi.catalogue_name=p.catalogue_name where oi.created_at between current_date-7 and current_date-1 group by 1,2,3")
     # df=df.iloc[:10]
     
 
@@ -198,7 +198,7 @@ def run():
     df.drop_duplicates(subset ="product_image", keep = False, inplace = True)
 
     #Generating Batches of dataframe in size of 100
-    list_df = np.array_split(df, 100)
+    list_df = np.array_split(df,100)
     print("batches created")
     #Defining the New Dataframe with score
     blurred_df=pd.DataFrame()
@@ -244,8 +244,12 @@ def run():
         blurred_df_batch = blurred_df_batch.assign(score =quality_list)
         # blurred_df_batch=blurred_df_batch.sort_values(by=['score'])
         blurred_df=blurred_df.append(blurred_df_batch,ignore_index=True)
-        blurred_df=blurred_df.sort_values(by=['score'])
+        # blurred_df=blurred_df.sort_values(by=['score'])
 
-        print("added in blurred dataframe")
-        paste_data_google_sheet(blurred_df,'1gyynC8w82vWzyES9U4ITJusi3obAmdWF3MUWYBl54oM','blurred_sheet',1,1)
+        # print("added in blurred dataframe")
+    old_blurred_df=copy_data_google_sheet('1gyynC8w82vWzyES9U4ITJusi3obAmdWF3MUWYBl54oM','blurred_sheet',1,1)
+    new_blurred_df=pd.concat([old_blurred_df, blurred_df], axis=0)
+    new_blurred_df.drop_duplicates(subset ="product_image", keep = False, inplace = True)
+    new_blurred_df=new_blurred_df.sort_values(by=['score'])
+    paste_data_google_sheet(new_blurred_df,'1gyynC8w82vWzyES9U4ITJusi3obAmdWF3MUWYBl54oM','blurred_sheet',1,1)
 
