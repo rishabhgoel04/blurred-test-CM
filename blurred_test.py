@@ -232,8 +232,8 @@ def run():
 
     old_blurred_df=copy_data_google_sheet('1gyynC8w82vWzyES9U4ITJusi3obAmdWF3MUWYBl54oM','blurred_sheet',1,1)
     new_blurred_df=pd.concat([old_blurred_df, blurred_df], axis=0)
-    new_blurred_df.drop_duplicates(subset ="product_image", keep = False, inplace = True)
-    new_blurred_df.drop_duplicates(subset ="score", keep = False, inplace = True)
+    new_blurred_df.drop_duplicates(subset ="product_image", inplace = True)
+    new_blurred_df.drop_duplicates(subset ="score", inplace = True)
     new_blurred_df=new_blurred_df.sort_values(by=['score'])
     paste_data_google_sheet(new_blurred_df,'1gyynC8w82vWzyES9U4ITJusi3obAmdWF3MUWYBl54oM','blurred_sheet',1,1)
 
