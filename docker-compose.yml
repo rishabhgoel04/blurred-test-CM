@@ -6,4 +6,4 @@ services:
       dockerfile: Dockerfile
     container_name: blurred_test
     ports:
-      - "5001:5000"
+      - "5005:5000"

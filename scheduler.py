@@ -10,7 +10,7 @@ from apscheduler.schedulers.background import BackgroundScheduler
 if __name__ == '__main__':
     scheduler = BackgroundScheduler()
     scheduler.configure(timezone=utc)
-    scheduler.add_job(func=run, trigger='cron', day_of_week=0, hour=4, minute=46)
+    scheduler.add_job(func=run, trigger='cron', day_of_week=0, hour=15, minute=42)
     scheduler.start()
     print('Press Ctrl+{0} to exit'.format('Break' if os.name == 'nt' else 'C'))
 

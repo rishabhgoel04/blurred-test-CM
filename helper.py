@@ -43,7 +43,7 @@ def data_from_db(query):
 def paste_data_google_sheet(df, key,worksheet,add_data_row = 1, add_data_col = 1):
     gc = gspread.service_account(filename='test.json')
     sh = gc.open_by_key(key)
-    worksheet = sh.worksheet(worksheet)
+    worksheet = sh.add_worksheet(title=worksheet, rows="10000", cols="5")
     print('Worksheet Connection Established')
     worksheet.clear()
     print('Worksheet Cleared')
